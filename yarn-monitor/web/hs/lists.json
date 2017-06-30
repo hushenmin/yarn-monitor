@@ -1,0 +1,253 @@
+{
+  "xData": [
+    1498721227887,
+    1498721528016,
+    1498721828275,
+    1498722128434,
+    1498722428582,
+    1498722728756,
+    1498723028955
+  ],
+  "datasets": [
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root",
+        "usedData": [
+          8179712,
+          16474112,
+          16019456,
+          15959040,
+          13651968,
+          37263360,
+          31686656
+        ]
+      },
+      "maxValue": [
+        72024064,
+        72024064,
+        72024064,
+        72024064,
+        72024064,
+        72024064,
+        72024064
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.bi",
+        "usedData": [
+          1516544,
+          592896,
+          130048,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "maxValue": [
+        24835884,
+        24835884,
+        24835884,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.bigdata",
+        "usedData": [
+          6663168,
+          15881216,
+          15889408,
+          15959040,
+          13651968,
+          37263360,
+          31686656
+        ]
+      },
+      "maxValue": [
+        47188180,
+        47188180,
+        47188180,
+        72024065,
+        72024065,
+        72024065,
+        72024065
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.bigdata.friend",
+        "usedData": [
+          454656,
+          454656,
+          454656,
+          454656,
+          454656,
+          9467904,
+          9467904
+        ]
+      },
+      "maxValue": [
+        20516600,
+        20516600,
+        20516600,
+        31314812,
+        31314812,
+        31314812,
+        31314812
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.bigdata.statistics",
+        "usedData": [
+          3867648,
+          13085696,
+          13093888,
+          13163520,
+          10856448,
+          25454592,
+          19867648
+        ]
+      },
+      "maxValue": [
+        20516600,
+        20516600,
+        20516600,
+        31314812,
+        31314812,
+        31314812,
+        31314812
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.bigdata.streaming",
+        "usedData": [
+          2340864,
+          2340864,
+          2340864,
+          2340864,
+          2340864,
+          2340864,
+          2351104
+        ]
+      },
+      "maxValue": [
+        6154980,
+        6154980,
+        6154980,
+        9394443,
+        9394443,
+        9394443,
+        9394443
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.default",
+        "usedData": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "maxValue": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.line",
+        "usedData": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "maxValue": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.line.fox",
+        "usedData": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "maxValue": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "MaxSharedValue",
+      "usedValues": {
+        "queue": "root.reh_security",
+        "usedData": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "maxValue": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

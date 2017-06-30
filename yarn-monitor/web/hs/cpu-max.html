@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/Highcharts-5.0.12/code/highcharts.js"></script>
+    <style>
+        #layout {
+            width: 90%;
+            height: auto;
+            margin: 0 auto;
+        }
+        #layout > div {
+            width: 50%;
+            height: auto;
+            display: inline-block;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div id="layout"></div>
+<script>
+    var api = {
+        cpuAll: 'http://100.106.35.3:8081/yarn-monitor/faircpuused-message'
+    };
+    var buildChart = (dom, title, xData, max, data) => {
+        dom.highcharts({
+            chart: {
+                type: 'areaspline'
+            },
+            title: {
+                text: title
+            },
+            legend: false,
+            xAxis: {
+                categories: xData
+            },
+            yAxis: {
+                title: {
+                    text: '核心数'
+                },
+                labels: {
+                    format: '{value} 核'
+                },
+            },
+            tooltip: {
+                shared: true,
+                valueSuffix: ' 核'
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                areaspline: {
+                    fillOpacity: 0.1
+                }
+            },
+            series: [{
+                name: max.name,
+                data: max.data
+            }, {
+                name: data.name,
+                data: data.data
+            }]
+        });
+    }
+    
+    $(function () {
+        $.get(api.cpuAll, (data) => {
+            var xData = [];
+            data.xData.forEach((value) => {
+                xData.push(new Date(value).toLocaleString())
+            });
+            data.datasets.forEach((value, index) => {
+                var $dom = $('<div id="datasets-'+ index +'"></div>').appendTo($('#layout'));
+                var title = value.usedValues.queue + 'CPU使用记录';
+                var max = {
+                    name: value.usedValues.queue + '分配值',
+                    data: value.maxValue
+                };
+                var userData = {
+                    name: value.usedValues.queue + '使用值',
+                    data: value.usedValues.usedData
+                };
+                buildChart($dom, title, xData, max, userData)
+            })
+        })
+    })
+    
+    
+</script>
+</body>
+</html>

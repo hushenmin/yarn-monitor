@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/Highcharts-5.0.12/code/highcharts.js"></script>
+    <style>
+        .chart-box {
+            width: 80%;
+            height: auto;
+            margin: 0 auto;
+            border: solid 1px #ccc;
+        }
+        .layout {
+            width: 100%;
+            height: auto;
+        }
+        .layout tr td {
+            width: 100%;
+            height: 400px;
+            padding-top: 20px;
+            padding-bottom: 50px;
+            border-bottom: solid 1px #ccc;
+        }
+        .layout tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+<div class="chart-box">
+    <table class="layout">
+        <tr>
+            <td>
+                <div id="mem" style="min-width:400px;height:400px"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="cpu" style="min-width:400px;height:400px"></div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    var api = {
+        memAll: 'http://100.106.35.3:8081/yarn-monitor/mem-all-message',
+        memOne: 'http://100.106.35.3:8081/yarn-monitor/mem-one-message',
+        cpuAll: 'http://100.106.35.3:8081/yarn-monitor/cpu-all-message',
+        cpuOne: 'http://100.106.35.3:8081/yarn-monitor/cpu-one-message'
+    };
+    Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+    });
+    var buildMemChart = function (series, categories) {
+        $('#mem').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 30
+            },
+            title: {
+                text: '内存使用监控'
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: [{
+                title: {
+                    text: '使用值'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }],
+                gridLineWidth: 0,
+                tickPositions: [0, 15625, 31250, 46875, 62500, 78125],
+                labels: {
+                    format: '{value} MB'
+                },
+                showFirstLabel: true,
+            }, {
+                title: {
+                    text: '使用率(%)'
+                },
+                labels: {
+                    align: 'right',
+                    x: -3,
+                    y: 4,
+                    format: '{value} %'
+                },
+                tickPositions: [0, 20, 40, 60, 80, 100],
+                showFirstLabel: true,
+                opposite: true
+            }],
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                            '使用值：' + '<br/>' +
+                            this.y + 'MB';
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            series: series
+        });
+    };
+    var buildCpuChart = function (series, categories) {
+        $('#cpu').highcharts({
+            chart: {
+                type: 'spline',
+                animation: Highcharts.svg, // don't animate in old IE
+                marginRight: 30
+            },
+            title: {
+                text: 'CPU使用监控'
+            },
+            xAxis: {
+                categories: categories
+            },
+            yAxis: [{
+                title: {
+                    text: 'CPU核心数'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }],
+                gridLineWidth: 0,
+                tickPositions: [0, 2512, 5042, 7536, 10048, 12560],
+                labels: {
+                    format: '{value} 个'
+                },
+                showFirstLabel: true,
+            }, {
+                title: {
+                    text: '使用率(%)'
+                },
+                labels: {
+                    align: 'right',
+                    x: -3,
+                    y: 4,
+                    format: '{value} %'
+                },
+                tickPositions: [0, 20, 40, 60, 80, 100],
+                showFirstLabel: true,
+                opposite: true
+            }],
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                            '使用值：' + '<br/>' +
+                            this.y + '核';
+                }
+            },
+            exporting: {
+                enabled: false
+            },
+            series: series
+        });
+    };
+    $.get(api.memAll, function (data) {
+        var series = [];
+        var categories = [];
+        for (var i = 0, len = data.length; i < len; i++){
+            var one = {};
+            one['name'] = data[i].name;
+            one['data'] = [];
+            for (var j = 0, ll = data[i].data.length; j < ll; j++){
+                one['data'].push(parseInt(data[i].data[j].y/1204, 10))
+            }
+            series.push(one)
+        }
+        for (var j = 0, ll = data[0].data.length; j < ll; j++){
+            categories.push(new Date(data[0].data[j].x).toLocaleString());
+        }
+        buildMemChart(series, categories);
+    });
+    $.get(api.cpuAll, function (data) {
+        var series = [];
+        var categories = [];
+        for (var i = 0, len = data.length; i < len; i++){
+            var one = {};
+            one['name'] = data[i].name;
+            one['data'] = [];
+            for (var j = 0, ll = data[i].data.length; j < ll; j++){
+                one['data'].push(data[i].data[j].y)
+            }
+            series.push(one)
+        }
+        for (var j = 0, ll = data[0].data.length; j < ll; j++){
+            categories.push(new Date(data[0].data[j].x).toLocaleString());
+        }
+        buildCpuChart(series, categories);
+    })
+</script>
+</body>
+</html>
